@@ -12,6 +12,7 @@ struct Watchlist: View {
         NavigationStack() {
             Text("Watchlist")
                 .navigationTitle(Text("Watchlist"))
+                .navigationBarTitleDisplayMode(.inline)
         }
         .tabItem {
             Text("Watchlist")
@@ -21,5 +22,5 @@ struct Watchlist: View {
 }
 
 #Preview {
-    Discover()
+    Watchlist()
 }

@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var selection: Int = 0
     var body: some View {
         TabView(selection: $selection) {
-            Discover()
+            Discover(network: ConcreteNetwork())
             Watchlist()
             MyTradeMe()
         }

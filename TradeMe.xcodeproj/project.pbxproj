@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AE324F082CEA8DF4005782E5 /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AE324F072CEA8DF4005782E5 /* OAuthSwift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AEF14B6D2CE56DE900C5557F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE324F082CEA8DF4005782E5 /* OAuthSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +77,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE324F062CEA8DF4005782E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AEF14B532CE56DE800C5557F = {
 			isa = PBXGroup;
 			children = (
 				AEF14B5E2CE56DE800C5557F /* TradeMe */,
 				AEF14B6F2CE56DE900C5557F /* TradeMeTests */,
 				AEF14B792CE56DE900C5557F /* TradeMeUITests */,
+				AE324F062CEA8DF4005782E5 /* Frameworks */,
 				AEF14B5D2CE56DE800C5557F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +125,7 @@
 			);
 			name = TradeMe;
 			packageProductDependencies = (
+				AE324F072CEA8DF4005782E5 /* OAuthSwift */,
 			);
 			productName = TradeMe;
 			productReference = AEF14B5C2CE56DE800C5557F /* TradeMe.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = AEF14B532CE56DE800C5557F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				AEF14BA32CEA8BB500C5557F /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AEF14B5D2CE56DE800C5557F /* Products */;
 			projectDirPath = "";
@@ -552,6 +569,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AEF14BA32CEA8BB500C5557F /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AE324F072CEA8DF4005782E5 /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEF14BA32CEA8BB500C5557F /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AEF14B542CE56DE800C5557F /* Project object */;
 }

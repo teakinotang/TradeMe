@@ -12,6 +12,7 @@ struct MyTradeMe: View {
         NavigationStack() {
             Text("My Trade Me")
                 .navigationTitle(Text("My Trade Me"))
+                .navigationBarTitleDisplayMode(.inline)
         }
         .tabItem {
             Text("My Trade Me")
