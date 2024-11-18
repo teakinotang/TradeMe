@@ -15,38 +15,41 @@ extension Discover {
     class ViewModel {
         
         var listings: [Listing] = []
-        var showErrorAlert: Bool = false
+        var showingErrorAlert = false
         var showingSearchAlert = false
         var showingCartAlert = false
-        var showListingAlert: Bool = false
-        var loading = false
+        var showingListingAlert = false
+        var showingLoadingIndicator = false
         
         private let network: Network
         private var cancellables: Set<AnyCancellable> = []
-                        
+        
+        // TODO: Dependency injection
         init(network: Network) {
             self.network = network
             updateListings()
         }
         
+        // TODO: Strong capture of self in `network.fetchLatestListings` closures probably isn't safe
         private func updateListings() {
-            loading = true
+            showingLoadingIndicator = true
+            // TODO: Make it possible to cancel this request if it starts to take too long
             network.fetchLatestListings()
                 .receive(on: DispatchQueue.main)
                 .sink {
                     if case .failure = $0 {
-                        self.showErrorAlert = true
-                        self.loading = false
+                        self.showingErrorAlert = true
+                        self.showingLoadingIndicator = false
                     }
                 } receiveValue: { result in
-                    self.loading = false
+                    self.showingLoadingIndicator = false
                     self.listings = result.listings
                 }
                 .store(in: &cancellables)
         }
         
         func tryAgain() {
-            showErrorAlert = false
+            showingErrorAlert = false
             updateListings()
         }
         

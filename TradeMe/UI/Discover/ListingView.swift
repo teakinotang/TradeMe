@@ -9,6 +9,8 @@ import Foundation
 import SwiftUICore
 import SwiftUI
 
+// TODO: Make this actually resemble what design has asked for :P
+// TODO: Including image size, text size/font, spacing, separator lines, probably more...
 struct ListingView: View {
     let listing: Listing
     

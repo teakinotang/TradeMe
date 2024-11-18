@@ -13,6 +13,7 @@ protocol Network {
     func fetchLatestListings() -> Future<LatestListingResult, TradeMeError>
 }
 
+// TODO: Proper error handling
 enum TradeMeError: Error {
     case someError
 }
@@ -20,6 +21,7 @@ enum TradeMeError: Error {
 class ConcreteNetwork: Network {
     
     func fetchLatestListings() -> Future<LatestListingResult, TradeMeError> {
+        // TODO: In the real world these should be safely stored away in the Keychain
         let oAuthSwift = OAuth1Swift(
             consumerKey: "A1AC63F0332A131A78FAC304D007E7D1",
             consumerSecret: "EC7F18B17A062962C6930A8AE88B16C7"

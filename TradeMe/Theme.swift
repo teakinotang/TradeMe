@@ -9,7 +9,7 @@ import Foundation
 import SwiftUICore
 
 // thanks Karan Champaneri - https://stackoverflow.com/questions/56874133/use-hex-color-in-swiftui
-
+// TODO: Figure out what's going on here instead of blindly copy/pasting it from the internet
 extension Color {
     init(hex: Int, opacity: Double = 1.0) {
         let red = Double((hex & 0xff0000) >> 16) / 255.0

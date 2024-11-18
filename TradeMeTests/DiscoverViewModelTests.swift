@@ -12,62 +12,60 @@ import Combine
 
 struct DiscoverViewModelTests {
     
-    var waiter = XCTWaiter()
+    private var waiter = XCTWaiter()
+    let listing = Listing.mock()
 
     @Test func testViewModel_getListings_success() async {
         let network = MockNetwork()
-        let listing = Listing.mock()
-        let expectToSucceed = XCTestExpectation(description: "Expect network request to succeed")
-        network.expectations.append(expectToSucceed)
         
+        let expectToSucceed = XCTestExpectation(description: "Expected network request to succeed")
+        network.expectations.append(expectToSucceed)
         network.expectedResponses = [LatestListingResult(listings: [listing])]
         
         let viewModel = Discover.ViewModel(network: network)
         
         await waiter.fulfillment(of: [expectToSucceed])
         
-        #expect(viewModel.showErrorAlert == false)
+        #expect(viewModel.showingErrorAlert == false)
         #expect(viewModel.listings == [listing])
     }
         
-    @Test func testViewModel_getListings_fail() async {
+    @Test func testViewModel_getListings_fails() async {
         let network = MockNetwork()
         network.shouldFail = true
-        let expectation = XCTestExpectation(description: "Expect network request to fail")
+        let expectation = XCTestExpectation(description: "Expected network request to fail")
         network.expectations.append(expectation)
         
         let viewModel = Discover.ViewModel(network: network)
         
         await waiter.fulfillment(of: [expectation])
         
-        #expect(viewModel.showErrorAlert == true)
+        #expect(viewModel.showingErrorAlert == true)
         #expect(viewModel.listings.isEmpty)
     }
     
     @Test func testViewModel_getListings_fails_tryAgain_succeeds() async {
         let network = MockNetwork()
-        let listing = Listing.mock()
         
         network.expectedResponses = [LatestListingResult(listings: [listing])]
         network.shouldFail = true
-        let expectToFail = XCTestExpectation(description: "Expect network request to fail")
-        let expectToSucceed = XCTestExpectation(description: "Expect network request to succeed")
+        let expectToFail = XCTestExpectation(description: "Expected network request to fail")
+        let expectToSucceed = XCTestExpectation(description: "Expected network request to succeed")
         network.expectations.append(contentsOf: [expectToFail, expectToSucceed])
         
         let viewModel = Discover.ViewModel(network: network)
         
         await waiter.fulfillment(of: [expectToFail])
         
-        #expect(viewModel.showErrorAlert == true)
+        #expect(viewModel.showingErrorAlert == true)
         #expect(viewModel.listings.isEmpty)
         
         viewModel.tryAgain()
         
         await waiter.fulfillment(of: [expectToSucceed])
         
-        #expect(viewModel.showErrorAlert == false)
+        #expect(viewModel.showingErrorAlert == false)
         #expect(viewModel.listings == [listing])
-        
     }
 
 }
@@ -86,14 +84,16 @@ extension Listing {
     
 }
 
+
+// TODO: Not this :P what started off as a simple set of unit tests has turned in to something pretty fugly
+// TODO: Use a mocking framework instead of hacking this together
 class MockNetwork: Network {
     
-    var expectedResults: [Result<TradeMe.LatestListingResult, TradeMe.TradeMeError>] = []
     var responseCount = 0
     var expectationCount = 0
     var shouldFail = false
-    var expectedResponses: [LatestListingResult] = []
     
+    var expectedResponses: [LatestListingResult] = []
     var expectations: [XCTestExpectation] = []
     
     func fetchLatestListings() -> Future<TradeMe.LatestListingResult, TradeMe.TradeMeError> {
